@@ -1,3 +1,4 @@
 node_modules
 .env
 roles_list.js
+reqLog.txt
