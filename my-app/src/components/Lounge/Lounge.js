@@ -1,3 +1,4 @@
+import "./Lounge.css";
 import { Link } from "react-router-dom"
 
 const Lounge = () => {

@@ -1,3 +1,4 @@
+import "./Admin.css";
 import { Link } from "react-router-dom";
 import Users from '../Users/Users';
 

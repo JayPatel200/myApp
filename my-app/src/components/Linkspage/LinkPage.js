@@ -1,3 +1,4 @@
+import "./LinkPage.css";
 import { Link } from "react-router-dom"
 
 const LinkPage = () => {
