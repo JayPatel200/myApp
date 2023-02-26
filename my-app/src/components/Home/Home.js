@@ -2,6 +2,7 @@ import "./Home.css";
 import { useNavigate, Link } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthProvider";
+import Tasks from '../Tasks/Tasks';
 
 const Home = () => {
     const { setAuth } = useContext(AuthContext);
@@ -19,6 +20,8 @@ const Home = () => {
             <h1>Home</h1>
             <br />
             <p>You are logged in!</p>
+            <br />
+            <Tasks />
             <br />
             <Link to="/editor">Go to the Editor page</Link>
             <br />
