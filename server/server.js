@@ -48,6 +48,7 @@ app.use('/logout', require('./routes/logout'));
 app.use(verifyJWT);
 app.use('/tenants', require('./routes/api/tenants'));
 app.use('/users', require('./routes/api/users'));
+app.use('/tasks', require('./routes/api/tasks'));
 
 app.all('*', (req, res) => {
     res.status(404);
