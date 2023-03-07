@@ -18,7 +18,6 @@ const Tasks = () => {
                 const response = await axiosPrivate.get('/tasks', {
                     signal: controller.signal
                 });
-                console.log(response.data);
                 isMounted && setTasks(response.data);
             } catch (err) {
                 console.error(err);
@@ -40,7 +39,7 @@ const Tasks = () => {
             {tasks?.length
                 ? (
                     <ul>
-                        {tasks.map((task, i) => <li key={i}><h2>{task?.username}</h2> <h5>{task?.taskname}</h5></li>)}
+                        {tasks.map((task, i) => <li key={i}><h2>{task?.title}</h2> <h5>{task?.start}</h5></li>)}
                     </ul>
                 ) : <p>No tasks to display</p>
             }
