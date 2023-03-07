@@ -5,6 +5,7 @@ const ROLES_LIST = require('../../config/roles_list');
 const verifyRoles = require('../../middleware/verifyRoles');
 
 router.route('/')
+    .post(verifyRoles(ROLES_LIST.User, ROLES_LIST.Admin, ROLES_LIST.Editor), tasksController.createNewTask)
     .get(verifyRoles(ROLES_LIST.User, ROLES_LIST.Admin, ROLES_LIST.Editor), tasksController.getAllTasks)
     .delete(verifyRoles(ROLES_LIST.User, ROLES_LIST.Admin, ROLES_LIST.Editor), tasksController.deleteTask);
 
