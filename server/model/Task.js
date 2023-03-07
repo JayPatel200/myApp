@@ -2,11 +2,19 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const taskSchema = new Schema({
-    username: {
+    title: {
         type: String,
         required: true
     },
-    taskname: {
+    allDay: {
+        type: Boolean,
+        default: true
+    },
+    start: {
+        type: String,
+        required: true
+    }, 
+    end: {
         type: String,
         required: true
     }
