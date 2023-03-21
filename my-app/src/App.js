@@ -9,6 +9,8 @@ import Unauthorized from './components/Unauthorized/Unauthorized';
 import Lounge from './components/Lounge/Lounge';
 import LinkPage from './components/Linkspage/LinkPage';
 import Schedule from './components/Schedule/Schedule';
+import Chatbox from './components/Chatbox/Chatbox';
+import Profile from './components/Profile/Profile';
 import RequireAuth from './components/RequireAuth';
 import { Routes, Route } from 'react-router-dom';
 
@@ -32,10 +34,17 @@ function App() {
           <Route path="schedule" element={<Schedule />} />
         </Route>
 
+        <Route element={<RequireAuth allowedRoles={[2001]} />}>
+          <Route path="chatbox" element={<Chatbox />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={[2001]} />}>
+          <Route path="profile" element={<Profile />} />
+        </Route>
+
         <Route element={<RequireAuth allowedRoles={[1984]} />}>
           <Route path="editor" element={<Editor />} />
         </Route>
-
 
         <Route element={<RequireAuth allowedRoles={[5150]} />}>
           <Route path="admin" element={<Admin />} />
