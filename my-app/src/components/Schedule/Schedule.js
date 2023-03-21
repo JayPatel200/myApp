@@ -2,7 +2,7 @@ import format from "date-fns/format";
 import getDay from "date-fns/getDay";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
@@ -11,7 +11,8 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "../../api/axios";
 import "./Schedule.css";
-import useAuth from '../../hooks/useAuth';
+import useAuth from "../../hooks/useAuth";
+import Nav from "../Nav/Nav";
 
 const TASK_URL = "/tasks";
 
@@ -43,7 +44,6 @@ const Schedule = () => {
   });
   const [allEvents, setAllEvents] = useState(events);
 
-
   useEffect(() => {
     let isMounted = true;
     const controller = new AbortController();
@@ -53,6 +53,11 @@ const Schedule = () => {
         const response = await axiosPrivate.get(TASK_URL, {
           signal: controller.signal,
         });
+        for (let i in response.data) {
+          // change the strigified date format to correct format for calendar
+          response.data[i].start = new Date(response.data[i].start);
+          response.data[i].end = new Date(response.data[i].end);
+        }
         isMounted && setAllEvents(response.data);
       } catch (err) {
         console.error(err);
@@ -69,16 +74,14 @@ const Schedule = () => {
 
   const handleAddEvent = async (e) => {
     setAllEvents([...allEvents, newEvent]);
-    
     try {
-      const response = await axios.post(
-        TASK_URL,
-        JSON.stringify( newEvent ),
-        {
-          headers: { 'Authorization': 'Bearer ' + auth.accessToken, 'Content-Type': 'application/json' },
-          withCredentials: true
-        }
-      );
+      const response = await axiosPrivate.post(TASK_URL, JSON.stringify(newEvent), {
+        headers: {
+          Authorization: "Bearer " + auth.accessToken,
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
       console.log(JSON.stringify(response?.data));
       navigate(from, { replace: true });
     } catch (err) {
@@ -87,7 +90,7 @@ const Schedule = () => {
       } else if (err.response?.status === 400) {
         alert("Missing Title, Start or End");
       } else if (err.response?.status === 401) {
-        alert("Already exits");
+        alert("Already exists");
       } else {
         alert("Failed to save new task");
       }
@@ -128,6 +131,9 @@ const Schedule = () => {
         endAccessor="end"
         style={{ height: 500, margin: "50px" }}
       />
+      <br/>
+      <br/>
+        <Nav />
     </div>
   );
 };
