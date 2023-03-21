@@ -2,12 +2,13 @@ import "./Login.css";
 import { useRef, useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-
+import useNav from "../../hooks/useNav";
 import axios from '../../api/axios';
 const LOGIN_URL = '/auth';
 
 const Login = () => {
     const { setAuth } = useAuth();
+    const { setActiveNav } = useNav();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -39,14 +40,13 @@ const Login = () => {
                     withCredentials: true
                 }
             );
-            console.log(JSON.stringify(response?.data));
-            //console.log(JSON.stringify(response));
             const accessToken = response?.data?.accessToken;
             const roles = response?.data?.roles;
             setAuth({ user, pwd, roles, accessToken });
             setUser('');
             setPwd('');
             navigate(from, { replace: true });
+            setActiveNav(from);
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
