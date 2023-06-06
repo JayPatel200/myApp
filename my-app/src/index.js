@@ -10,11 +10,11 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <NavProvider>
-          <Routes>
-            <Route path="/*" element={<App />} />
-          </Routes>
-        </NavProvider>
+          <NavProvider>
+            <Routes>
+              <Route path="/*" element={<App />} />
+            </Routes>
+          </NavProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,
