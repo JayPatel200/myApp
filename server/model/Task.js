@@ -17,6 +17,10 @@ const taskSchema = new Schema({
     end: {
         type: String,
         required: true
+    }, 
+    house: {
+      type: String, 
+      required: true
     }
 });
 
