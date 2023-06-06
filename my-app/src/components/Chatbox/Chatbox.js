@@ -11,7 +11,7 @@ const Chatbox = () => {
   const { auth } = useAuth();
 
   useEffect(() => {
-    socket.emit("join_room", auth.house);
+    socket.emit("join_room", auth?.houses[0]);
   }, []);
 
   return (
@@ -20,7 +20,7 @@ const Chatbox = () => {
         socket={socket}
         room={auth.house}
         username={auth.user}
-        house={auth.house}
+        house={auth?.houses[0]}
       />
       <Nav />
     </div>

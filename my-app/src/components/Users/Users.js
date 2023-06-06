@@ -2,12 +2,14 @@ import "./Users.css";
 import { useState, useEffect } from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Users = () => {
     const [users, setUsers] = useState();
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
+    const { auth } = useAuth();
 
     useEffect(() => {
         let isMounted = true;
@@ -15,7 +17,7 @@ const Users = () => {
 
         const getUsers = async () => {
             try {
-                const response = await axiosPrivate.get('/users', {
+                const response = await axiosPrivate.get('/users' + auth?.houses[0], { //+houseAuth.house for getting users in this house
                     signal: controller.signal
                 });
                 console.log(response.data);
@@ -32,7 +34,7 @@ const Users = () => {
             isMounted = false;
             controller.abort();
         }
-    }, [])
+    }, []);
 
     return (
         <article>

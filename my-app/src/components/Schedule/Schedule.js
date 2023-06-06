@@ -40,7 +40,7 @@ const Schedule = () => {
     allDay: true,
     start: "",
     end: "",
-    house: auth.house,
+    house: auth?.houses[0],
   });
   const [allEvents, setAllEvents] = useState(events);
 
@@ -50,7 +50,7 @@ const Schedule = () => {
 
     const getTasks = async () => {
       try {
-        const response = await axiosPrivate.get(TASK_URL+'/' + auth.house, { //+houseAuth.houseName to get current tasks
+        const response = await axiosPrivate.get(TASK_URL+'/' + auth?.houses[0], { //+houseAuth.houseName to get current tasks
           signal: controller.signal,
         });
         for (let i in response.data) {

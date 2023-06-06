@@ -1,4 +1,5 @@
 const User = require('../model/User');
+const Houses = require("../model/Houses");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -11,8 +12,10 @@ const handleLogin = async (req, res) => {
     // evaluate password 
     const match = await bcrypt.compare(pwd, foundUser.password);
     if (match) {
+        const houses = await Houses.findOne({ username: user }).exec();
+        const allowedHouses = houses.allowedHouses;
+        console.log(allowedHouses)
         const roles = Object.values(foundUser.roles).filter(Boolean);
-        const house = foundUser.house;
         // create JWTs
         const accessToken = jwt.sign(
             {
@@ -37,7 +40,7 @@ const handleLogin = async (req, res) => {
         res.cookie('jwt', refreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
 
         // Send authorization roles and access token
-        res.json({ roles, accessToken, house});
+        res.json({ roles, accessToken, allowedHouses});
 
     } else {
         res.sendStatus(401);
