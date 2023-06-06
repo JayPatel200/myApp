@@ -10,6 +10,6 @@ router.route('/')
     .delete(verifyRoles(ROLES_LIST.User, ROLES_LIST.Admin, ROLES_LIST.Editor), tasksController.deleteTask);
 
 router.route('/:id')
-    .get(verifyRoles(ROLES_LIST.User, ROLES_LIST.Admin, ROLES_LIST.Editor), tasksController.getTask);
+    .get(verifyRoles(ROLES_LIST.User, ROLES_LIST.Admin, ROLES_LIST.Editor), tasksController.getTasks);
 
 module.exports = router;
