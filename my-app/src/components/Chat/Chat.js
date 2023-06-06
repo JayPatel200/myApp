@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
-import { useNavigate, useLocation } from "react-router-dom";
 
 const MESSAGES_URL = "/messages";
 
-function Chat({ socket, username, room }) {
+function Chat({ socket, username, room, house }) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
 
   const sendMessage = async () => {
     if (currentMessage !== "") {
@@ -20,6 +17,7 @@ function Chat({ socket, username, room }) {
           new Date(Date.now()).getHours() +
           ":" +
           new Date(Date.now()).getMinutes(),
+        house: house
       };
 
       await socket.emit("send_message", messageData);
@@ -29,10 +27,10 @@ function Chat({ socket, username, room }) {
   };
 
   useEffect(() => {
-    socket.emit("callback", "room");
+    socket.emit("callback", {room: house, house});
     socket.on("receive_message", (data) => {
       setMessageList(data);
-      socket.emit("callback", "room");
+      socket.emit("callback", {room: house, house});
     });
   }, []);
 
