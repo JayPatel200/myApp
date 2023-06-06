@@ -46,8 +46,6 @@ app.use("/", express.static(path.join(__dirname, "/public")));
 //seperate server for chat through socket.io
 const server = http.createServer(appChat);
 
-let interval;
-
 const io = new Server(server, {
   cors: {
     origin: "*",
@@ -64,15 +62,14 @@ io.on("connection", (socket) => {
 
   socket.on("callback", async (data) => {
     try {
-        const messages = await Message.find();
-        socket.emit("receive_message", messages);
+      const messages = await Message.find({house: data.house});
+      io.to(data.room).emit("receive_message", messages);
     } catch (err) {
-        console.error(err);
+      console.error(err);
     }
-});
+  });
 
   socket.on("disconnect", () => {
-    clearInterval(interval);
     console.log("User Disconnected", socket.id);
   });
 
@@ -97,6 +94,7 @@ app.use(verifyJWT);
 app.use("/tenants", require("./routes/api/tenants"));
 app.use("/users", require("./routes/api/users"));
 app.use("/tasks", require("./routes/api/tasks"));
+app.use("/houses", require("./routes/api/houses"));
 
 app.all("*", (req, res) => {
   res.status(404);
