@@ -9,7 +9,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
-import axios from "../../api/axios";
 import "./Schedule.css";
 import useAuth from "../../hooks/useAuth";
 import Nav from "../Nav/Nav";
@@ -41,6 +40,7 @@ const Schedule = () => {
     allDay: true,
     start: "",
     end: "",
+    house: auth.house,
   });
   const [allEvents, setAllEvents] = useState(events);
 
@@ -50,7 +50,7 @@ const Schedule = () => {
 
     const getTasks = async () => {
       try {
-        const response = await axiosPrivate.get(TASK_URL, {
+        const response = await axiosPrivate.get(TASK_URL+'/' + auth.house, { //+houseAuth.houseName to get current tasks
           signal: controller.signal,
         });
         for (let i in response.data) {
