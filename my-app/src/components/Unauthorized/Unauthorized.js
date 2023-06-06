@@ -1,5 +1,6 @@
 import "./Unauthorized.css";
 import { useNavigate } from "react-router-dom"
+import Nav from "../Nav/Nav";
 
 const Unauthorized = () => {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Unauthorized = () => {
             <div className="flexGrow">
                 <button onClick={goBack}>Go Back</button>
             </div>
+        <Nav/>
         </section>
     )
 }
