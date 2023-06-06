@@ -1,15 +1,20 @@
-import "./Register.css";
+import "./RegisterOwner.css";
 import { useRef, useState, useEffect } from "react";
-import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faTimes,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../../api/axios";
 import { Link } from "react-router-dom";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-const REGISTER_URL = "/register";
+const REGISTEROWNER_URL = "/register";
+const owner = true;
 
-const Register = () => {
+const RegisterOwner = () => {
   const userRef = useRef();
   const errRef = useRef();
 
@@ -56,14 +61,13 @@ const Register = () => {
     }
     try {
       const response = await axios.post(
-        REGISTER_URL,
-        JSON.stringify({ user, pwd }),
+        REGISTEROWNER_URL,
+        JSON.stringify({ user, pwd, owner }),
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
-      // TODO: remove console.logs before deployment
       console.log(JSON.stringify(response?.data));
       setSuccess(true);
       //clear state and controlled inputs
@@ -100,7 +104,7 @@ const Register = () => {
           >
             {errMsg}
           </p>
-          <h1>Register</h1>
+          <h1>Register As a House Owner</h1>
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">
               Username:
@@ -231,4 +235,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterOwner;

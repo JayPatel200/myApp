@@ -1,4 +1,5 @@
 const User = require('../model/User');
+const House = require("../model/Houses");
 
 const getAllUsers = async (req, res) => {
     const users = await User.find();
@@ -16,17 +17,17 @@ const deleteUser = async (req, res) => {
     res.json(result);
 }
 
-const getUser = async (req, res) => {
-    if (!req?.params?.id) return res.status(400).json({ "message": 'User ID required' });
-    const user = await User.findOne({ _id: req.params.id }).exec();
-    if (!user) {
-        return res.status(204).json({ 'message': `User ID ${req.params.id} not found` });
+const getUsers = async (req, res) => {
+    if (!req?.params?.id) return res.status(400).json({ "message": 'House ID required' });
+    const users = await House.find({ allowedHouses: req.params.id }).exec();
+    if (!users) {
+        return res.status(204).json({ 'message': `User ID ${req.params.id} not found in the house` });
     }
-    res.json(user);
+    res.json(users.username);
 }
 
 module.exports = {
     getAllUsers,
     deleteUser,
-    getUser
+    getUsers,
 }
