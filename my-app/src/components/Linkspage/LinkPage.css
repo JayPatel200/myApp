@@ -1,4 +1,4 @@
-section {
+/* section {
     width: 100%;
     max-width: 420px;
     min-height: 400px;
@@ -10,9 +10,9 @@ section {
     border: 1px solid transparent;
     border-radius: 1rem;
     transition: var(--transition);
-}
+} */
 
-button {
+/* button {
     padding: 0.5rem;
     border: 1px solid var(--color-primary);
     cursor: pointer;
@@ -24,4 +24,4 @@ button {
       background: var(--color-white);
       color: var(--color-bg);
       border-color: transparent;
-  }
+  } */

@@ -1,4 +1,4 @@
-section {
+/* section {
     width: 100%;
     max-width: 420px;
     min-height: 400px;
@@ -10,7 +10,7 @@ section {
     border: 1px solid transparent;
     border-radius: 1rem;
     transition: var(--transition);
-}
+} */
 
 button {
     padding: 0.5rem;

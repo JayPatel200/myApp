@@ -38,7 +38,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: center; 
   min-height: 100vh; 
   padding: 1rem 0.5rem;
 }
@@ -52,13 +52,13 @@ form {
     padding-bottom: 1rem;
 }
 
-section > h2, 
-section > h5 {
+h2, 
+h5 {
     text-align: center;
     color: var(--color-light);
 }
 
-section > h1 {
+h1 {
     text-align: center;
 }
 a, a:visited {
