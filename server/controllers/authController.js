@@ -14,7 +14,6 @@ const handleLogin = async (req, res) => {
     if (match) {
         const houses = await Houses.findOne({ username: user }).exec();
         const allowedHouses = houses.allowedHouses;
-        console.log(allowedHouses)
         const roles = Object.values(foundUser.roles).filter(Boolean);
         // create JWTs
         const accessToken = jwt.sign(
