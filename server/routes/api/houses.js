@@ -10,6 +10,7 @@ router.route('/')
     .delete(verifyRoles(ROLES_LIST.Admin, ROLES_LIST.Editor), houseController.deleteHouse);
 
 router.route('/:id')
-    .get(verifyRoles(houseController.getHouses));
+    .put(verifyRoles(ROLES_LIST.Admin), houseController.addTenant)
+    .delete(verifyRoles(ROLES_LIST.Admin), houseController.removeTenant)
 
 module.exports = router;
