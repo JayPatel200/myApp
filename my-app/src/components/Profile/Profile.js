@@ -3,14 +3,50 @@ import { useRef, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
 import Nav from "../Nav/Nav";
+import Dropdown from "../Dropdown/Dropdown";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const LOGOUT_URL = "/logout";
+const HOUSE_URL = "/houses";
 
 const Profile = () => {
   const { auth, setAuth } = useAuth();
   const userRef = useRef();
   const [house, setHouse] = useState("");
-  const [user, setUser] = useState("");
+  const [addUser, setAddUser] = useState("");
+  const [removeUser, setRemoveUser] = useState("");
+  const axiosPrivate = useAxiosPrivate();
+  const owner = auth.user;
+
+  const buildNewHouse = async (e) => {
+    try {
+      const response = await axiosPrivate.post(HOUSE_URL, JSON.stringify({house, owner}), {
+        headers: {
+          Authorization: "Bearer " + auth.accessToken,
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
+    } catch (err) {
+      
+    }
+  };
+
+  const addTenant = async (e) => {
+    try {
+      
+    } catch (err) {
+      
+    }
+  };
+
+  const removeTenant = async (e) => {
+    try {
+      
+    } catch (err) {
+      
+    }
+  };
 
   const logout = async () => {
     // if used in more components, this should be in context
@@ -33,7 +69,9 @@ const Profile = () => {
       <div>
         <h1>Profile</h1>
       </div>
+      <Dropdown options={auth?.houses} />
       <div>
+
         <label htmlFor="housename">Housename:</label>
         <input
           type="text"
@@ -44,26 +82,35 @@ const Profile = () => {
           value={house}
           required
         />
-        <button>Build a house</button>
+        <button onClick={buildNewHouse} >Build a house</button>
         <br/>
-        <label htmlFor="username">Username:</label>
+
+        <label htmlFor="addUsername">Username:</label>
         <input
           type="text"
-          id="username"
+          id="addUsername"
           ref={userRef}
           autoComplete="off"
-          onChange={(e) => setUser(e.target.value)}
-          value={user}
+          onChange={(e) => setAddUser(e.target.value)}
+          value={addUser}
           required
         />
-        <button>Add tenants to the house</button>
+        <button onClick={addTenant} >Add a tenant to the house</button>
+        <br/>
+
+        <label htmlFor="removeUsername">Username:</label>
+        <input
+          type="text"
+          id="removeUsername"
+          ref={userRef}
+          autoComplete="off"
+          onChange={(e) => setRemoveUser(e.target.value)}
+          value={removeUser}
+          required
+        />
+        <button onClick={removeTenant} >Remove a tenant from the house</button>
       </div>
       <div>
-        {/* <h1>Links</h1>
-        <br />
-        <Link to="/editor">Editors Page</Link>
-        <br />
-        <Link to="/admin">Admin Page</Link> */}
         <div className="flexGrow">
           <button onClick={logout}>Sign Out</button>
         </div>
