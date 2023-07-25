@@ -44,8 +44,8 @@ const Login = () => {
       const accessToken = response?.data?.accessToken;
       const roles = response?.data?.roles;
       const houses = response?.data?.allowedHouses;
-      console.log(houses)
-      setAuth({ user, pwd, roles, houses, accessToken });
+      const currentHouse = response?.data?.allowedHouses[0];
+      setAuth({ user, pwd, roles, accessToken, houses, currentHouse });
       setUser("");
       setPwd("");
       navigate(from, { replace: true });
