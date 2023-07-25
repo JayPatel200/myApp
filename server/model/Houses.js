@@ -10,6 +10,10 @@ const houseSchema = new Schema({
     type: [String],
     required: true,
   },
+  ownedHouses: {
+    type: [String],
+    required: true,
+  },
 });
 
 module.exports = mongoose.model("Houses", houseSchema);
